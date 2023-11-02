@@ -62,8 +62,8 @@ int main(int argc, char* argv[])
 	float vertices[] = {
 		// positions        // colors
 		0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,
-		-0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-		0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f
+		-0.5f, -0.5f, 0.0f,	0.0f, 1.0f, 0.0f,
+		0.0f, 0.5f, 0.0f,   0.0f, 0.0f, 1.0f
 	};
 
 	//Create an ID to be given at object generation
@@ -149,7 +149,10 @@ int main(int argc, char* argv[])
 				break;
 			}
 		}
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the screen
+
+		// Clear the screen
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 		//Shader to use next
 		glUseProgram(shaderProgram);
 
@@ -158,13 +161,17 @@ int main(int argc, char* argv[])
 
 		// Get the time in seconds 
 		float timeValue = (float)SDL_GetTicks() / 1000;
+		float offset = (sin(timeValue));
 		//float redColor = (sin(timeValue) / 2.0f) + 0.5f;
 		//float greenColor = (sin(timeValue) / 2.0f) + 2.0f;
 		//float blueColor = (sin(timeValue) / 2.0f) + 4.5f;
 
-		//int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
-		//glUseProgram(shaderProgram);
-		//glUniform4f(vertexColorLocation, redColor, greenColor, blueColor, 1.0f);
+		int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+		int vertexOffsetLocation = glGetUniformLocation(shaderProgram, "offset");
+
+		glUseProgram(shaderProgram);
+		glUniform4f(vertexColorLocation, 1.0f, 1.0f, 1.0f, 1.0f);
+		glUniform1f(vertexOffsetLocation, offset);
 
 		//OMG WE FINALLY DRAW ! We use the GL_TRIANGLES primitive type
 		//We draw from vertex 0 and we will be drawing 3 vertices
