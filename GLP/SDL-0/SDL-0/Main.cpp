@@ -60,12 +60,11 @@ int main(int argc, char* argv[])
 	//Describe the shape by its vertices
 
 	float vertices[] = {
-		// positions             // colors
-			 0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,
-			-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,
-			 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f
+		// positions        // colors
+		0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,
+		-0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f
 	};
-
 
 	//Create an ID to be given at object generation
 	unsigned int vbo;
@@ -73,9 +72,9 @@ int main(int argc, char* argv[])
 	//Pass how many buffers should be created and the reference of the ID to get the value set
 	glGenBuffers(1, &vbo);
 
-	string vs = LoadShader("samplevertex.shader");
+	string vs = LoadShader("RGBVertex.shader");
 	const char* vertexShaderSource = vs.c_str();
-	string fs = LoadShader("samplefragment.shader");
+	string fs = LoadShader("RGBFragment.shader");
 	const char* fragmentShaderSource = fs.c_str();
 
 
@@ -125,10 +124,10 @@ int main(int argc, char* argv[])
 	// Position attribute
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
+
 	// Color attribute
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
-
 
 	//Use depth management
 	glEnable(GL_DEPTH_TEST);
@@ -159,13 +158,13 @@ int main(int argc, char* argv[])
 
 		// Get the time in seconds 
 		float timeValue = (float)SDL_GetTicks() / 1000;
-		float redColor = (sin(timeValue) / 2.0f) + 0.5f;
-		float greenColor = (sin(timeValue) / 2.0f) + 2.0f;
-		float blueColor = (sin(timeValue) / 2.0f) + 4.5f;
+		//float redColor = (sin(timeValue) / 2.0f) + 0.5f;
+		//float greenColor = (sin(timeValue) / 2.0f) + 2.0f;
+		//float blueColor = (sin(timeValue) / 2.0f) + 4.5f;
 
-		int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
-		glUseProgram(shaderProgram);
-		glUniform4f(vertexColorLocation, redColor, greenColor, blueColor, 1.0f);
+		//int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+		//glUseProgram(shaderProgram);
+		//glUniform4f(vertexColorLocation, redColor, greenColor, blueColor, 1.0f);
 
 		//OMG WE FINALLY DRAW ! We use the GL_TRIANGLES primitive type
 		//We draw from vertex 0 and we will be drawing 3 vertices
